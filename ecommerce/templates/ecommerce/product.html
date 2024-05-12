@@ -1,0 +1,13 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+<div class="product">
+    <div class="product-card">
+        <img src="{{ app_name }}{{ product.image.url }}" alt="{{ product.name }}"/>
+        <div>
+        <h2>{{product.name}}</h2>
+        <h2>150.00R$</h1>
+        <p>{{product.description}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

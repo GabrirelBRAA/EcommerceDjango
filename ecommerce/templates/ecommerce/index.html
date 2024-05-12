@@ -1,0 +1,40 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+<div class="section1">
+<h1>Móveis para o seu gosto!</h1>
+<div class="selection">
+    {% for product in products %}
+    <div>
+        <a href="{% url 'ecommerce:item' product.id %}"><img src="{{ app_name }}{{ product.image.url }}" alt="{{ product.name }}"/></a>
+        <br/>
+        {{ product.name }}
+    </div>
+    {% endfor %}
+</div>
+
+</div>
+
+<div class="section2">
+<h1>Aqui temos o que precisa!</h1>
+
+<div class="selection">
+    <img src="" alt="meme"/>
+    <img src="" alt="meme"/>
+    <img src="" alt="meme"/>
+    <img src="" alt="meme"/>
+    <img src="" alt="meme"/>
+</div>
+
+</div>
+
+<div class="section3">
+<h1>Faça o nosso cartão de fidelidade e
+    receba as melhores ofertas!</h1>
+
+<p>Aqui na E-móveis clienes X são bem tratados</p>
+
+<button class="card-button" >Faça já!</button>
+
+</div>
+
+{% endblock %}
