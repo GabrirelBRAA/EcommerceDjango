@@ -1,10 +1,11 @@
 body {
-    background-color: white;
+    background-color: #FEF6F5;
     color: #FDE9E7;
+    color: #0F0200;
     margin: 0;
     padding: 0;
     padding-top: 8vh;
-    font-family: "Jacques Francois";
+    font-family: "Roboto Mono"
 }
 
 html{
@@ -24,6 +25,7 @@ nav{
     justify-content:space-around;
     font-size: 18px;
     padding: 0% 1%;
+    font-family: "Roboto Mono"
 }
 
 nav > a {
@@ -46,7 +48,8 @@ img{
 }
 
 h1{
-    font-size: 72px;
+    font-size: 78px;
+    color: #0F0200;
     text-align: center;
     margin: 0;
 }
@@ -67,11 +70,6 @@ h1{
 }
 
 
-.section1{
-    background-color: #3B2D2C;
-    padding-top: 1%;
-    padding-bottom: 2%;
-}
 .section2{
     background-color: #F2A6A6;
     color: #0F0200;
@@ -94,6 +92,7 @@ h1{
 
 p {
     text-align: center;
+    color: #0F0200;
 }
 
 .card-button{
@@ -137,14 +136,6 @@ form{
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
 }
-
-.product{
-    background-color: #F2A6A6;
-    color: #0F0200;
-    height: 88vh;
-    display: flex;
-    padding-top: 4vh;
-}
 .product-card{
     background-color: #FEF6F5;
     color: #FEF7F6;
@@ -161,4 +152,41 @@ form{
     width: 300px;
     margin-left: 50px;
 }
+
+.circles-container{
+    display:flex;
+    justify-content: space-between;
+    padding: 0% 5%;
+    text-align: center;
+}
+
+.circle{
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.products-container{
+    display:flex;
+    flex-overflow: auto;
+    justify-content: space-between;
+    padding: 0% 5%;
+    overflow-x: scroll;
+}
+
+.product{
+    display: flex;
+    height: 200px;
+    width: 350px;
+    border-radius: 20px;
+    border: solid #8E160B 5px;
+    flex: 0 0 350px;
+    margin-right: 50px;
+    justify-content: right;
+    align-items: flex-end;
+    font-size: 1.5rem;
+}
+
 

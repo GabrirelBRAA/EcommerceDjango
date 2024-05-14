@@ -48,12 +48,15 @@ class OrderModelTests(TestCase):
         sale.save()
         order = Order(sale=sale, product=product, quantity=5)
         order.save()
+        product.refresh_from_db()
         self.assertEqual(product.quantity, 5)
         order.quantity = 10
         order.save()
+        product.refresh_from_db()
         self.assertEqual(product.quantity, 0)
         order.quantity = 0
         order.save()
+        product.refresh_from_db()
         self.assertEqual(product.quantity, 10)
 
     '''
@@ -72,4 +75,4 @@ class OrderModelTests(TestCase):
             order.save()
         order2 = Order(sale=sale, product=product, quantity=99)
         with self.assertRaises(ValueError):
-            order.save()
+            order2.save()

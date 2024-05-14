@@ -26,7 +26,7 @@ how it happens.
 class PriceHistory(models.Model):
     product = models.ForeignKey("Product", on_delete=models.PROTECT)
     price = models.FloatField(null=False, blank=False)
-    date = models.DateTimeField(default=datetime.datetime.now, blank=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.product.name + " price at: " + str(self.date)
@@ -114,7 +114,7 @@ class Sale(models.Model):
     }
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    date = models.DateTimeField(default=datetime.datetime.now())
+    date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=4, choices=STATUS_OPTIONS, default=PAYMENT_PENDING)
 
     def __str__(self):
@@ -135,19 +135,19 @@ class Order(models.Model):
         self.__original_quantity = self.quantity
 
 
-    def save(self, *args, **kwargs): #Ao chegar aqui isso já deveria ter sido validado
+    #This needs to be atomic
+    def save(self, *args, **kwargs):
         if(self._state.adding == True):
-            self.product.quantity -= self.quantity
-            if(self.product.quantity < 0):
+            if((self.product.quantity - self.quantity) < 0):
                 raise ValueError("Not enough products for order quantity")
-            self.product.save()
+            self.product.quantity = models.F("quantity") - self.quantity
+            self.product.save(update_fields=["quantity"])
             self.__original_quantity = self.quantity
         elif(self.__original_quantity != self.quantity):
-            self.product.quantity += self.__original_quantity
-            self.__original_quantity = self.quantity
-            self.product.quantity -= self.quantity
-            if(self.product.quantity < 0):
+            if((self.product.quantity - self.quantity + self.__original_quantity) < 0):
                 raise ValueError("Not enough products for order quantity")
-            self.product.save()
+            self.product.quantity = models.F("quantity") + self.__original_quantity - self.quantity
+            self.product.save(update_fields=["quantity"])
+            self.__original_quantity = self.quantity
         super(Order, self).save(*args, **kwargs)
 

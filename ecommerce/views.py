@@ -7,20 +7,10 @@ from .models import Product
 
 app_name = '/ecommerce'
 
-def hello(request):
+def index(request):
 
     products = Product.get_for_index()
-    d = {'products': []}
-    for query in products: #Maybe jut send the QuerySet to the template engine
-        obj = {
-            "name": query.name,
-            "image": query.image,
-            "id": query.id
-        }
-        d["products"].append(obj)
-
-    d["app_name"] = app_name
-    #print(reverse("hello"))
+    d = {'products': products}
     return render(request, "ecommerce/index.html", d)
 
 def item(request, product_id):
@@ -28,5 +18,7 @@ def item(request, product_id):
     return render(request, "ecommerce/product.html", {"product": product, "app_name": app_name})
 
 def login(request):
+    if request.method == 'POST':
+        pass
     return render(request, "ecommerce/login.html")
 
