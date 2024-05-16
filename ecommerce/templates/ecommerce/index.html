@@ -1,7 +1,7 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
-<h1>Aqui temos o que precisa!</h1>
-<div class="circles-container">
+<h1 class="intro-index">Aqui temos o que precisa!</h1>
+<div class="circles-container" id="circles-container">
     <div><div class="circle"></div>Computador</div>
     <div><div class="circle"></div>Minecraft</div>
     <div><div class="circle"></div>Meme</div>
@@ -16,7 +16,77 @@
     <div><div class="product">199.99R$</div>Hello World</div>
     <div><div class="product">199.99R$</div>Hello World</div>
     <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div class="scroll-button triangle" id="circle-button-right-1"></div>
+    <div class="scroll-button-left triangle triangle-left" id="circle-button-left-1"></div>
 </div>
+<div class="products-container">
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div class="scroll-button triangle" id="circle-button-right-2"></div>
+    <div class="scroll-button-left triangle triangle-left" id="circle-button-left-2"></div>
+</div>
+<div class="products-container">
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div><div class="product">199.99R$</div>Hello World</div>
+    <div class="scroll-button triangle" id="circle-button-right-3"></div>
+    <div class="scroll-button-left triangle triangle-left" id="circle-button-left-3"></div>
+</div>
+<script>
+    d = document.getElementById("circles-container")
+    {
+        for(let i = 1; i < 4; ++i){
+            button = document.getElementById("circle-button-right-" + i)
+            console.log(button.style)
+            style = getComputedStyle(button)
+            topVal = parseInt(style.top, 10)
+            console.log(topVal)
+            button.style.top = (topVal + 100) + "px";
+            button.addEventListener("click", (e) => {
+                console.log("Hello World")
+                e.target.parentNode.scrollBy({left: 500, behavior:'smooth'})
+                console.log(e.target.parentNode.scrollLeft)
+                width = e.target.parentNode.scrollWidth - e.target.parentNode.clientWidth
+                if(e.target.parentNode.scrollLeft + 500 >= width){
+                    e.target.hidden = true
+                }
+                console.log(width)
+                button_opposite = document.getElementById("circle-button-left-" + i)
+                button_opposite.hidden = false
+            })
+        }
+    }
+    {
+        for(let i = 1; i < 4; ++i){
+            button = document.getElementById("circle-button-left-" + i)
+            console.log(button.style)
+            style = getComputedStyle(button)
+            topVal = parseInt(style.top, 10)
+            console.log(topVal)
+            button.style.top = (topVal + 100) + "px";
+            button.hidden = true
+            button.addEventListener("click", (e) => {
+                console.log("Hello World")
+                e.target.parentNode.scrollBy({left: -500, behavior:'smooth'})
+                console.log(e.target.parentNode.scrollLeft)
+                console.log(e.target.parentNode.offsetWidth)
+                width = e.target.parentNode.scrollWidth - e.target.parentNode.clientWidth
+                if(e.target.parentNode.scrollLeft - 500 <= 0){
+                    e.target.hidden = true
+                }
+                button_opposite = document.getElementById("circle-button-right-" + i)
+                button_opposite.hidden = false
+                console.log(width)
+            })
+        }
+    }
+</script>
 <!--
 <div class="selection">
     {% for product in products %}

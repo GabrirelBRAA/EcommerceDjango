@@ -158,6 +158,7 @@ form{
     justify-content: space-between;
     padding: 0% 5%;
     text-align: center;
+    margin-bottom: 5%;
 }
 
 .circle{
@@ -187,6 +188,91 @@ form{
     justify-content: right;
     align-items: flex-end;
     font-size: 1.5rem;
+}
+
+.intro-index{
+margin-top: 5%;
+margin-bottom: 5%;
+}
+
+.scroll-button{
+    position: absolute;
+    right: 20px;
+    top: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+}
+
+.scroll-button-left{
+    position: absolute;
+    left: 0;
+    top: inherit;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-left: 60px solid green;
+  border-radius: 50px;
+}
+
+.triangle {
+	position: absolute;
+	background-color: orange;
+	text-align: left;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.triangle:before,
+.triangle:after {
+	content: '';
+	position: absolute;
+	background-color: inherit;
+}
+/*
+.triangle,
+.triangle:before,
+.triangle:after {
+	width:  10em;
+	height: 10em;
+	border-top-right-radius: 30%;
+}
+*/
+.triangle, .triangle:before, .triangle:after {
+	width:  1.5em;
+	height: 1.5em;
+	border-top-right-radius: 30%;
+}
+
+.triangle {
+	/*transform: rotate(-60deg) skewX(-30deg) scale(1,.866);*/
+	transform: rotate(calc(-60deg + 90deg)) skewX(-30deg) scale(1,.866);
+}
+
+.triangle-left{
+	transform: rotate(calc(-60deg - 90deg)) skewX(-30deg) scale(1,.866);
+	left: 20px;
+}
+
+.triangle:before {
+	transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+.triangle:after {
+	transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}
+
+.triangle:hover{
+	background-color: red;
+}
+
+.triangle:active{
+	background-color: green;
 }
 
 

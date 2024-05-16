@@ -3,6 +3,7 @@ from django.http import HttpResponse
 
 from .models import Product
 
+from random import randint
 # Create your views here.
 
 app_name = '/ecommerce'
@@ -19,6 +20,10 @@ def item(request, product_id):
 
 def login(request):
     if request.method == 'POST':
+        print("POST DONE")
         pass
     return render(request, "ecommerce/login.html")
+
+def register(request):
+    return render(request, "ecommerce/index.html")
 

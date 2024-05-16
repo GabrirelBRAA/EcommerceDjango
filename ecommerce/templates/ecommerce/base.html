@@ -17,7 +17,11 @@
     <a>About Us</a>
     <a>How I met your mother</a>
     <div class="space"></div>
+    {% if session %}
+    <div>{{session.name}}</div>
+    {% else %}
     <a href="{% url 'ecommerce:login' %}">Login</a>
+    {% endif %}
 </nav>
 {% block content %}
 {% endblock %}

@@ -127,3 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = 'images/'
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True

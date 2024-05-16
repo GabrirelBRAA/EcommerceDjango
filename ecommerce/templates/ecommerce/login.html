@@ -3,10 +3,12 @@
 <div class="login">
     <div>
         <h1>Login</h1>
-        <form method="GET">
+        <form action="{% url 'ecommerce:login' %}" method="post">
+            {% csrf_token %}
             <input type="text">
             <br/>
             <input type="password">
+            <input type="submit">
         </form>
 
     </div>
