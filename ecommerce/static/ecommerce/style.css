@@ -1,11 +1,12 @@
 body {
     background-color: #FEF6F5;
+    background-color: white;
     color: #FDE9E7;
     color: #0F0200;
     margin: 0;
     padding: 0;
     padding-top: 8vh;
-    font-family: "Roboto Mono"
+    font-family: "Roboto"
 }
 
 html{
@@ -25,8 +26,35 @@ nav{
     justify-content:space-around;
     font-size: 18px;
     padding: 0% 1%;
-    font-family: "Roboto Mono"
+    font-family: "Roboto";
+    z-index: 2;
+
+    img {
+        filter: invert(100%) sepia(92%) saturate(0%) hue-rotate(311deg) brightness(107%) contrast(107%);
+        width: 50px;
+        height: 100%;
+        margin: 0 0;
+    }:hover{
+        filter: invert(11%) sepia(80%) saturate(2871%) hue-rotate(354deg) brightness(106%) contrast(88%);
+    }
+
+    form > input[type='submit']{
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 18px;
+        margin-right: 50px;
+    }type['submit']:hover{
+        color:#811616 !important;
+    }
+
+
+
 }
+    nav > .space{
+        width: 500px;
+    }
+
 
 nav > a {
     flex-grow: 1;
@@ -52,6 +80,10 @@ h1{
     color: #0F0200;
     text-align: center;
     margin: 0;
+}
+
+h2{
+    color: black;
 }
 
 .selection{
@@ -138,19 +170,84 @@ form{
 }
 .product-card{
     background-color: #FEF6F5;
+    background-color: white;
     color: #FEF7F6;
-    display: flex;
-    border: solid 3px #0F0200;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     height: 400px;
     width: 80%;
     margin: auto;
-    padding-top: 50px;
+    margin-top: 5%;
+    border-radius: 20px;
+    box-shadow: 0px 1px 2px black;
+
+    h2{
+        text-align: center;
+    }
+
 }
 
 .product-card > img{
-    height: 300px;
-    width: 300px;
-    margin-left: 50px;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width:500px;
+    height:400px;
+    border-radius: inherit;
+
+}
+
+
+.product-card > .buy-component{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    border-radius: inherit;
+}
+
+.buy-component{
+    text-align: center;
+    padding-top: 60px;
+}
+.buy-component > form{
+    height: 225px;
+    width: 200px;
+    color: black;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0px 1px 2px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5% 0;
+    margin: auto;
+
+    input[type='submit']{
+        padding: 10px;
+        color: #fff;
+        background-color: #1b9103;
+        border: none;
+        border-radius: 15px;
+        font-size: 1rem;
+        width: 100px;
+        margin: auto;
+        box-shadow: 0px 1px 2px black;
+    }[type='submit']:hover{
+        background-color: #1b8306;
+        box-shadow: 0px 1px 3px black;
+    }[type='submit']:active{
+        box-shadow: 0px 1px 1px black;
+    }
+
+    input[type='number']{
+        width: 3em;
+        margin: auto;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+
 }
 
 .circles-container{
@@ -175,19 +272,34 @@ form{
     justify-content: space-between;
     padding: 0% 5%;
     overflow-x: scroll;
+    text-align: left;
+}
+
+.products-container > a{
+    text-decoration: none;
+    color: black;
+}
+.products-container > a > img{
+    color: black;
+    margin-bottom: 10px;
 }
 
 .product{
     display: flex;
     height: 200px;
     width: 350px;
-    border-radius: 20px;
-    border: solid #8E160B 5px;
+    border-radius: 10px;
     flex: 0 0 350px;
     margin-right: 50px;
     justify-content: right;
     align-items: flex-end;
     font-size: 1.5rem;
+    /*box-shadow: 25px 20px 2px #3B2D2B;*/
+    box-shadow: 0px 1px 2px #3B2D2B;
+}
+
+.product:hover{
+    box-shadow: 0px 2px 4px #3B2D2B;
 }
 
 .intro-index{
@@ -273,6 +385,45 @@ margin-bottom: 5%;
 
 .triangle:active{
 	background-color: green;
+}
+
+table{
+    margin: 100px;
+
+    .table_image > img{
+        height: 250px;
+        width: 250px;
+    }
+
+    .table_description{
+        max-width: 30em;
+        text-align: center;
+    }
+
+    .table_quantity{
+        font-size: 1.8rem;
+    }
+
+    .table_name{
+        font-size: 1.5rem;
+    }
+
+    td{
+        padding: 30px;
+    }
+}
+
+.buy-form{
+    input{
+        width: 30%;
+        background-color: #1b9103;
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 100px;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 15px 0;
+    }
 }
 
 

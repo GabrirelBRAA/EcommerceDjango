@@ -68,7 +68,7 @@ class Product(models.Model):
     Product.save creates a PriceHistory if the price has changed from the original one.
     '''
     def save(self, *args, **kwargs):
-        if self.price != self.__original_price:
+        if self.price != self.__original_price and self._state.adding == False:
             price_history = PriceHistory(product=self, price=self.__original_price)
             price_history.save()
         super(Product, self).save(*args, **kwargs)

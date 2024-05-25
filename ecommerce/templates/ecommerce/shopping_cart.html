@@ -1,0 +1,20 @@
+{% extends "ecommerce/base.html" %}
+{% load static %}
+{% block content %}
+<h1>My cart</h1>
+<table>
+{% for product in products %}
+    <tr>
+    <td class="table_image"><img src="{{ product.image_set.first.image.url}}" alt="{{ product.name }}"/></td>
+    <td class="table_name">{{product.name}}</td>
+    <td class="table_description">{{product.description}}</td>
+    <td class="table_quantity"><b>{{product.quant}}</b> Unin.</td>
+    </tr>
+{% endfor %}
+</table>
+
+<form class="buy-form">
+    {% csrf_token %}
+    <input type="submit" value="Comprar!">
+</form>
+{% endblock %}

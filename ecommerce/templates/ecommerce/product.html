@@ -1,13 +1,22 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
-<div class="product">
     <div class="product-card">
-        <img src="{{ app_name }}{{ product.image.url }}" alt="{{ product.name }}"/>
-        <div>
+        <img src="{{ product.image_set.first.image.url}}" alt="{{ product.name }}"/>
         <h2>{{product.name}}</h2>
-        <h2>150.00R$</h1>
         <p>{{product.description}}</p>
+        <div class="buy-component">
+            {% if not request.user.is_active %}
+            <form action="{% url 'ecommerce:login' %}" method="get">
+            {% else %}
+            <form action="{% url 'ecommerce:add_to_cart' %}" method="post">
+            {% endif %}
+            {% csrf_token %}
+                <input type="number" name="quantity" min="1" value="1"/><br>
+                <input type="submit" value="Comprar!">
+                <input type="hidden" value="{{product.id}}" name="id">
+                <h2>{{product.price}} R$</h2>
+            </form>
+
         </div>
     </div>
-</div>
 {% endblock %}

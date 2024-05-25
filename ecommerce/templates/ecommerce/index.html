@@ -1,4 +1,6 @@
+
 {% extends "ecommerce/base.html" %}
+{% load static %}
 {% block content %}
 <h1 class="intro-index">Aqui temos o que precisa!</h1>
 <div class="circles-container" id="circles-container">
@@ -11,6 +13,15 @@
     <div><div class="circle"></div>Reclado</div>
     <div><div class="circle"></div>Popo</div>
 </div>
+<h2>Computadores</h2>
+<div class="products-container">
+    {% for product in products %}
+    <a href="{% url 'ecommerce:item' product_id=product.id %}"><img class="product" src="{{ product.image_set.first.image.url }}" alt="product_image">{{product.name}} &emsp; {{product.price}} R$</a>
+    {% endfor %}
+    <div class="scroll-button triangle" id="circle-button-right-4"></div>
+    <div class="scroll-button-left triangle triangle-left" id="circle-button-left-4"></div>
+</div>
+<h2>Cadeiras</h2>
 <div class="products-container">
     <div><div class="product">199.99R$</div>Hello World</div>
     <div><div class="product">199.99R$</div>Hello World</div>
@@ -41,7 +52,7 @@
 <script>
     d = document.getElementById("circles-container")
     {
-        for(let i = 1; i < 4; ++i){
+        for(let i = 1; i < 5; ++i){
             button = document.getElementById("circle-button-right-" + i)
             console.log(button.style)
             style = getComputedStyle(button)
@@ -63,7 +74,7 @@
         }
     }
     {
-        for(let i = 1; i < 4; ++i){
+        for(let i = 1; i < 5; ++i){
             button = document.getElementById("circle-button-left-" + i)
             console.log(button.style)
             style = getComputedStyle(button)

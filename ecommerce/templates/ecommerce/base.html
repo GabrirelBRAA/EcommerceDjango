@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>E-Moveis</title>
@@ -17,8 +17,13 @@
     <a>About Us</a>
     <a>How I met your mother</a>
     <div class="space"></div>
-    {% if session %}
-    <div>{{session.name}}</div>
+    {% if request.user.is_active %}
+    <div>{{request.user.username}}</div>
+    <a href="{% url 'ecommerce:shopping_cart' %}"><img src="{% static 'ecommerce/shopping-cart.svg' %}" alt="cart"/></a>
+    <form action="{% url 'ecommerce:logout'%}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout"/>
+    </form>
     {% else %}
     <a href="{% url 'ecommerce:login' %}">Login</a>
     {% endif %}
