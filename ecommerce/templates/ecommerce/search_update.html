@@ -1,0 +1,14 @@
+<body>
+{% for product in products %}
+  <a class="search-a-tag" href="{% url 'ecommerce:item' product_id=product.id %}">
+    <div class="search-product">
+      <img src="#" alt="image"/>
+      <div class="search-product-grid">
+        <span>{{ product.name }}</span>
+        <p>{{ product.description }}</p>
+        <span class="price">{{ product.price }}</span>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+</body>

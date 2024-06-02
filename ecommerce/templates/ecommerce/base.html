@@ -2,34 +2,53 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+
 <head>
-    <meta charset="UTF-8">
-    <title>E-Moveis</title>
-    <link rel="stylesheet" href="{% static 'ecommerce/style.css' %}"/><link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>E-Moveis</title>
+  <link rel="stylesheet" href="{% static 'ecommerce/style.css' %}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{% static 'ecommerce/favicon.ico' %}">
 </head>
+
 <body>
-<nav>
+  <nav>
     <a href="{% url 'ecommerce:index' %}">E-Móveis</a>
-    <a>About Us</a>
-    <a>How I met your mother</a>
+    <a href="{% url 'ecommerce:aboutus' %}">About Us</a>
+    <form class="search" action="{% url 'ecommerce:search' %}" method="get">
+      <input type="search" name="searchquery" placeholder="Search here!">
+    </form>
     <div class="space"></div>
-    {% if request.user.is_active %}
-    <div>{{request.user.username}}</div>
-    <a href="{% url 'ecommerce:shopping_cart' %}"><img src="{% static 'ecommerce/shopping-cart.svg' %}" alt="cart"/></a>
-    <form action="{% url 'ecommerce:logout'%}" method="post">
+
+      {% if request.user.is_active %}
+      <div>{{request.user.username}}</div>
+
+      <a class="shop-icon" href="{% url 'ecommerce:shopping_cart' %}">
+        {% if request.session.shopping_cart %}
+        {% with len=request.session.shopping_cart|length %}
+        <div class="shopping-cart-counter">{{len}}</div>
+        {% endwith %}
+        {% endif %}
+        <img src="{% static 'ecommerce/shopping-cart.svg' %}" alt="cart"/>
+      </a>
+
+      <form action="{% url 'ecommerce:logout'%}" method="post">
         {% csrf_token %}
         <input type="submit" value="Logout"/>
-    </form>
+      </form>
+
     {% else %}
-    <a href="{% url 'ecommerce:login' %}">Login</a>
+      <a href="{% url 'ecommerce:login' %}">Login</a>
     {% endif %}
-</nav>
-{% block content %}
-{% endblock %}
+  </nav>
+
+  {% block content %}
+  {% endblock %}
 
 </body>
 </html>

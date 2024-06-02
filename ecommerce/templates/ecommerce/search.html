@@ -1,0 +1,44 @@
+{% extends "ecommerce/base.html" %}
+{% load static %}
+{% block content %}
+<h2>Mostrando resultados para "{{ searchquery }}"...</h2>
+{% for product in products%}
+<a class="search-a-tag" href="{% url 'ecommerce:item' product_id=product.id %}">
+  <div class="search-product">
+    <img src="#" alt="image"/>
+    <div class="search-product-grid">
+      <span>{{ product.name }}</span>
+      <p>{{ product.description }}</p>
+      <span class="price">{{ product.price }}</span>
+    </div>
+  </div>
+</a>
+{% endfor %}
+<button id="load-button" class="load-button" >Carregar mais</buttoni>
+<script>
+
+    var searchquery = "{{searchquery}}";
+    var querylength = 20;
+    let url = new URL("/ecommerce/search",window.location.origin);
+    url.search = new URLSearchParams({searchquery: searchquery, offset: querylength})
+
+    async function buttonClick(e){
+        response = await fetch(url);
+        text = await response.text();
+        parser = new DOMParser();
+        xmlDoc = parser.parseFromString(text, "text/html");
+        body = xmlDoc.children[0].children[1];
+        querylength += 10;
+        url.search = new URLSearchParams({searchquery: searchquery, offset: querylength})
+        let length = body.children.length;
+        for(var i = 0; i < length; i++)
+        {
+            e.target.before(body.children[0]);
+        }
+    }
+
+    button = document.getElementById("load-button");
+    button.addEventListener('click', buttonClick)
+
+</script>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -12,8 +12,11 @@ app_name = '/ecommerce'
 
 def index(request):
 
-    products = Product.get_for_index()
-    d = {'products': products}
+    computers = Product.objects.filter(category=Category.objects.get(name="Computador"))[:10]
+    chairs = Product.objects.filter(category=Category.objects.get(name="Cadeira"))[:10]
+    d = {'computers': computers,
+         'chairs': chairs
+         }
     return render(request, "ecommerce/index.html", d)
 
 def item(request, product_id):
@@ -59,7 +62,7 @@ def add_to_cart(request):
             print("Huh")
         request.session["shopping_cart"].update({request.POST['id']: request.POST['quantity']})
         request.session.modified = True
-        return HttpResponse(str(dict(request.session)))
+        return HttpResponseRedirect(reverse('ecommerce:index'))
     else:
         return HttpResponseRedirect(reverse('ecommerce:login'))
 
@@ -71,3 +74,22 @@ def shopping_cart(request):
         return render(request, 'ecommerce/shopping_cart.html', {"products": products})
     else:
         return render(request, 'ecommerce/shopping_cart.html', {"products": []})
+
+def aboutus(request):
+    return render(request, 'ecommerce/aboutus.html')
+
+def search(request):
+    search_query = request.GET['searchquery']
+    if request.GET.get('offset') != None:
+        offset = int(request.GET['offset'])
+        products = Product.objects.filter(name__contains=search_query)[offset:(offset + 10)]
+        for product in products:
+            print(product)
+        return render(request, 'ecommerce/search_update.html', {"products": products})
+    category = Category.objects.get(name="Computador")
+    products = Product.objects.filter(name__contains=search_query)[:20]
+    return render(request, 'ecommerce/search.html', {"products": products, "searchquery": search_query})
+
+def echo(request):
+    print("echo HELLO")
+    return HttpResponse("echo HELLO")
