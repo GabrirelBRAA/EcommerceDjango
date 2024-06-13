@@ -5,24 +5,16 @@
     <h1>Login</h1>
     <form action="{% url 'ecommerce:login' %}" method="post">
       {% csrf_token %}
-      <input type="text" name="name">
-      <br/>
-      <input type="password" name="password">
-      <br/>
-      <input type="submit" value="Login!">
+      {{ login_form }}
+      <input type="submit" value="Submit">
     </form>
   </div>
   <div>
   <h1>Cadastro</h1>
     <form action="{% url 'ecommerce:signin' %}" method="post">
       {% csrf_token %}
-      <input type="text" name="name">
-      <br/>
-      <input type="password" name="password">
-      <br/>
-      <input type="password" name="confirmpassword">
-      <br/>
-      <input type="submit", value="Sign-up!">
+      {{ sign_form }}
+      <input type="submit" value="Submit">
     </form>
   </div>
 </div>

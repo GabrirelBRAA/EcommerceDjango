@@ -12,5 +12,7 @@ urlpatterns = [
     path('add_to_cart', views.add_to_cart, name='add_to_cart'),
     path('shooping_cart', views.shopping_cart, name='shopping_cart'),
     path('aboutus', views.aboutus, name='aboutus'),
-    path('search', views.search, name='search')
-    ]
+    path('search', views.search, name='search'),
+    path('orders', views.orders, name='orders'),
+    path("create_sale", views.create_sale, name='create_sale')
+]

@@ -14,88 +14,55 @@
     <div><div class="circle"></div>Popo</div>
 </div>
 -->
-<h2>Computadores</h2>
+
+{% for category, products in data %}
+<h2>{{ category }}</h2>
 <div class="products-container">
-  {% for product in computers %}
+  {% for product in products %}
   <a href="{% url 'ecommerce:item' product_id=product.id %}"><img class="product" src="{{ product.image_set.first.image.url }}" alt="product_image">{{product.name}} &emsp; {{product.price}} R$</a>
   {% endfor %}
   <div class="scroll-button triangle" id="circle-button-right-4"></div>
-  <div class="scroll-button-left triangle triangle-left" id="circle-button-left-4"></div>
+  <div class="scroll-button-left triangle triangle-left"></div>
 </div>
-<h2>Cadeiras</h2>
-<div class="products-container">
-  {% for product in chairs %}
-  <a href="{% url 'ecommerce:item' product_id=product.id %}"><img class="product" src="{{ product.image_set.first.image.url }}" alt="product_image">{{product.name}} &emsp; {{product.price}} R$</a>
-  {% endfor %}
-  <div class="scroll-button triangle" id="circle-button-right-1"></div>
-  <div class="scroll-button-left triangle triangle-left" id="circle-button-left-1"></div>
-</div>
-<div class="products-container">
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div class="scroll-button triangle" id="circle-button-right-2"></div>
-  <div class="scroll-button-left triangle triangle-left" id="circle-button-left-2"></div>
-</div>
-<div class="products-container">
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div><div class="product">199.99R$</div>Hello World</div>
-  <div class="scroll-button triangle" id="circle-button-right-3"></div>
-  <div class="scroll-button-left triangle triangle-left" id="circle-button-left-3"></div>
-</div>
+{% endfor %}
+
 <script>
-    d = document.getElementById("circles-container")
-    {
-        for(let i = 1; i < 5; ++i){
-            button = document.getElementById("circle-button-right-" + i)
-            console.log(button.style)
-            style = getComputedStyle(button)
-            topVal = parseInt(style.top, 10)
-            console.log(topVal)
-            button.style.top = (topVal + 100) + "px";
-            button.addEventListener("click", (e) => {
-                console.log("Hello World")
-                e.target.parentNode.scrollBy({left: 500, behavior:'smooth'})
-                console.log(e.target.parentNode.scrollLeft)
-                width = e.target.parentNode.scrollWidth - e.target.parentNode.clientWidth
-                if(e.target.parentNode.scrollLeft + 500 >= width){
-                    e.target.hidden = true
-                }
-                console.log(width)
-                button_opposite = document.getElementById("circle-button-left-" + i)
-                button_opposite.hidden = false
-            })
-        }
+    /*
+    This script addes the movement event on the arrow buttons. 
+    It also moves them 100px down so that they are closer to the middle of the parent box.
+    */
+    var arrows_right = document.getElementsByClassName("scroll-button")
+    var arrows_left = document.getElementsByClassName("scroll-button-left")
+    for(let i = 0; i < arrows_right.length; i++){
+        button = arrows_right[i]
+        style = getComputedStyle(button)
+        topVal = parseInt(style.top, 10)
+        button.style.top = (topVal + 100) + "px";
+        button.addEventListener("click", (e) => {
+            e.target.parentNode.scrollBy({left: 500, behavior:'smooth'})
+            width = e.target.parentNode.scrollWidth - e.target.parentNode.clientWidth
+            if(e.target.parentNode.scrollLeft + 500 >= width){
+                e.target.hidden = true
+            }
+            button_opposite = e.target.parentNode.getElementsByClassName("scroll-button-left")[0]
+            button_opposite.hidden = false
+        })
     }
-    {
-        for(let i = 1; i < 5; ++i){
-            button = document.getElementById("circle-button-left-" + i)
-            console.log(button.style)
-            style = getComputedStyle(button)
-            topVal = parseInt(style.top, 10)
-            console.log(topVal)
-            button.style.top = (topVal + 100) + "px";
-            button.hidden = true
-            button.addEventListener("click", (e) => {
-                console.log("Hello World")
-                e.target.parentNode.scrollBy({left: -500, behavior:'smooth'})
-                console.log(e.target.parentNode.scrollLeft)
-                console.log(e.target.parentNode.offsetWidth)
-                width = e.target.parentNode.scrollWidth - e.target.parentNode.clientWidth
-                if(e.target.parentNode.scrollLeft - 500 <= 0){
-                    e.target.hidden = true
-                }
-                button_opposite = document.getElementById("circle-button-right-" + i)
-                button_opposite.hidden = false
-                console.log(width)
-            })
-        }
+    for(let i = 0; i < arrows_left.length; i++){
+        button = arrows_left[i]
+        style = getComputedStyle(button)
+        topVal = parseInt(style.top, 10)
+        button.style.top = (topVal + 100) + "px";
+        button.hidden = true; //Left arrows begins hidden
+        button.addEventListener("click", (e) => {
+            e.target.parentNode.scrollBy({left: -500, behavior:'smooth'})
+            width = e.target.parentNode.scrollWidth - e.target.parentNode.clientWidth
+            if(e.target.parentNode.scrollLeft - 500 <= 0){
+                e.target.hidden = true
+            }
+            button_opposite = e.target.parentNode.getElementsByClassName("scroll-button")[0]
+            button_opposite.hidden = false
+        })
     }
 </script>
-
 {% endblock %}

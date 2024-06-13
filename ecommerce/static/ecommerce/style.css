@@ -181,8 +181,8 @@ form{
     color: #FEF7F6;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 2fr;
-    height: 400px;
+    grid-template-rows: 2fr 1fr;
+    min-height: 600px;
     width: 80%;
     margin: auto;
     margin-top: 5%;
@@ -197,7 +197,7 @@ form{
 
 .product-card > img{
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
     width:500px;
     height:400px;
     border-radius: inherit;
@@ -207,10 +207,18 @@ form{
 
 .product-card > .buy-component{
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
     grid-column-start: 3;
     grid-column-end: 4;
     border-radius: inherit;
+}
+
+.product-description{
+    font-size: 16px;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: left;
+    padding: 0 4em;
 }
 
 .buy-component{
@@ -314,7 +322,7 @@ margin-top: 5%;
 margin-bottom: 5%;
 }
 
-.scroll-button{
+.scroll-button, .scroll-button-left{
     position: absolute;
     right: 20px;
     top: inherit;
@@ -323,21 +331,6 @@ margin-bottom: 5%;
     appearance: none;
     border: none;
     background-color: transparent;
-}
-
-.scroll-button-left{
-    position: absolute;
-    left: 0;
-    top: inherit;
-}
-
-.arrow-right {
-  width: 0;
-  height: 0;
-  border-top: 60px solid transparent;
-  border-bottom: 60px solid transparent;
-  border-left: 60px solid green;
-  border-radius: 50px;
 }
 
 .triangle {
@@ -354,15 +347,7 @@ margin-bottom: 5%;
 	position: absolute;
 	background-color: inherit;
 }
-/*
-.triangle,
-.triangle:before,
-.triangle:after {
-	width:  10em;
-	height: 10em;
-	border-top-right-radius: 30%;
-}
-*/
+
 .triangle, .triangle:before, .triangle:after {
 	width:  1.5em;
 	height: 1.5em;
@@ -394,7 +379,7 @@ margin-bottom: 5%;
 	background-color: green;
 }
 
-table{
+.shopping-cart-table{
     margin: 100px;
 
     .table_image > img{
@@ -421,6 +406,7 @@ table{
 }
 
 .buy-form{
+    background-color: none;
     input{
         width: 30%;
         background-color: #1b9103;
@@ -430,7 +416,22 @@ table{
         border: none;
         border-radius: 1.5rem;
         padding: 15px 0;
+        box-shadow: 0x 3px 2px black !important;
     }
+    input[type="submit"]:hover{
+        box-shadow: 0x 1px 3px black;
+    }
+}
+
+.buy-form > input{
+    box-shadow: 0px 1px 2px black;
+}
+.buy-form > input:hover{
+    box-shadow: 0px 1px 3px black;
+}
+
+.buy-form > input:active{
+    box-shadow: 0px 0px 1px black;
 }
 
 .shopping-cart-counter{
@@ -501,4 +502,60 @@ table{
     border: none;
     color: white;
     margin: 0 45%;
+}
+
+.order{
+    margin: auto;
+    width: 800px;
+    box-shadow: 0px 1px 2px black;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.order > span{
+    text-align: right;
+    margin-left: 500px;
+}
+
+.order > h3{
+    display: inline-block;
+}
+
+.order > button{
+    font-size: 18px;
+    margin-left: 80%;
+    color: white;
+    background-color: #1b9103;
+    border: none;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    box-shadow: 0px 1px 2px black;
+}button:active{
+    background-color: green;
+}button:hover{
+    box-shadow: 0px 1px 3px black;
+}
+
+.orders-table{
+    margin-left: 10%;
+    width: 70%;
+    border-collapse: collapse;
+}
+
+.orders-table > tbody > tr > td{
+    padding-top: 25px;
+    border-bottom: solid 1px gray;
+}
+
+.CANC{
+    color: red;
+}
+
+.PPND{
+    color: yellow;
+}
+
+.order-total{
+    font-weight: 700;
+    font-size: 1.2em;
 }

@@ -120,6 +120,9 @@ class Sale(models.Model):
     def __str__(self):
         return "SID: " + str(self.id) + " " + self.STATUS_OPTIONS[self.status]
 
+    def get_status(self):
+        return self.STATUS_OPTIONS[self.status]
+
 
 '''
 Order is a part of a Sale, each order refers to a single product and the quantity of it on the Sale.
@@ -136,6 +139,7 @@ class Order(models.Model):
 
 
     #This needs to be atomic
+    #This code is also very much weird and unreadable
     def save(self, *args, **kwargs):
         if(self._state.adding == True):
             if((self.product.quantity - self.quantity) < 0):
@@ -151,3 +155,12 @@ class Order(models.Model):
             self.__original_quantity = self.quantity
         super(Order, self).save(*args, **kwargs)
 
+
+def generate_sale(user, shopping_cart):
+    sale = Sale(user=user)
+    sale.save()
+    for id, quantity in shopping_cart.items():
+        product = Product.objects.get(id=id)
+        order = Order(sale=sale, product=product, quantity=int(quantity))
+        order.save()
+    return sale

@@ -1,0 +1,26 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+<h2>Your orders here!</h2>
+{% for sale in sales %}
+<div class="order">
+    <h3>Pedido número {{sale.id}}</h3> <span class="{{sale.status}}">{{sale.get_status}}</span>
+    <table class="orders-table">
+        {% for order in sale.order_set.all %}
+        <tr>
+            <td></td>
+            <td>{{order.product.name}}</td>
+            <td>{{order.product.price}} R$</td>
+            <td>{{order.quantity}} Und.</td>
+        </tr>
+        {% endfor %}
+        <tr class="order-total">
+            <td>Total</td>
+            <td></td>
+            <td>{{sale.total}} R$</td>
+            <td></td>
+        </tr>
+    </table>
+    <button>Ir ao pagamento</button>
+</div>
+{% endfor %}
+{% endblock %}

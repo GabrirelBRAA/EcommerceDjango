@@ -3,7 +3,7 @@
 <div class="product-card">
   <img src="{{ product.image_set.first.image.url}}" alt="{{ product.name }}"/>
   <h2>{{product.name}}</h2>
-  <p>{{product.description}}</p>
+  <p class="product-description">{{product.description}}</p>
   <div class="buy-component">
     {% if not request.user.is_active %}
     <form action="{% url 'ecommerce:login' %}" method="get">

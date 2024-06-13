@@ -27,6 +27,7 @@
 
       {% if request.user.is_active %}
       <div>{{request.user.username}}</div>
+      <a href="{% url 'ecommerce:orders' %}">Orders</a>
 
       <a class="shop-icon" href="{% url 'ecommerce:shopping_cart' %}">
         {% if request.session.shopping_cart %}

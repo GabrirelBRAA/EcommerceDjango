@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <h1>My cart</h1>
-<table>
+<table class="shopping-cart-table">
 {% for product in products %}
     <tr>
     <td class="table_image"><img src="{{ product.image_set.first.image.url}}" alt="{{ product.name }}"/></td>
@@ -13,7 +13,7 @@
 {% endfor %}
 </table>
 
-<form class="buy-form">
+<form class="buy-form" action="{% url 'ecommerce:create_sale' %}" method="post">
     {% csrf_token %}
     <input type="submit" value="Comprar!">
 </form>
