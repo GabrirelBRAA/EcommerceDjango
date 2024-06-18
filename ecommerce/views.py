@@ -1,11 +1,17 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Product, Category, generate_sale, Sale, Order
+from .models import Product, Category, generate_sale, Sale, Order, StripeCheckout
 from .forms import LoginForm, SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ValidationError
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+
+import json
+
+import stripe
 
 app_name = '/ecommerce'
 
@@ -126,7 +132,7 @@ def orders(request):
         price = 0
         for order in sale.order_set.all():
             price += order.product.price
-        sale.total = price
+        sale.total = price * 1/100
 
     return render(request, 'ecommerce/orders.html', {"sales": sales})
 
@@ -141,3 +147,63 @@ def create_sale(request):
         return HttpResponse("Post Here!")
     else:
         return HttpResponseRedirect(reverse('ecommerce:index'))
+
+import os
+def checkout(request):
+    if request.method == "POST":
+        sale_id = request.POST["id"]
+        sale = Sale.objects.filter(id=sale_id)[0]
+        line_items = []
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        print(os.environ["STRIPE_SECRET_KEY"])
+        print(settings.STRIPE_SECRET_KEY)
+        print(stripe.api_key)
+        for order in sale.order_set.all():
+            line_items.append(
+                {
+                    "price": order.product.stripe_price,
+                    "quantity": order.quantity
+                }
+            )
+
+        #Need to add routes to success and cancel paymente later
+        checkout_session = stripe.checkout.Session.create(
+            line_items = line_items,
+            mode="payment",
+            success_url = request.build_absolute_uri(reverse("ecommerce:index")),
+            cancel_url = request.build_absolute_uri(reverse("ecommerce:index"))
+        )
+
+        stripe_checkout = StripeCheckout(sale=sale, stripe_id=checkout_session.id)
+        stripe_checkout.save()
+        return redirect(checkout_session.url, code=303)
+
+    return HttpResponse("Hello World")
+
+
+@csrf_exempt
+def webhook(request):
+    endpoint_secret = 'whsec_009feca76f951f5ed0e487644e64cd645a45dede6f5301ff11b1e9db28bf86ee'
+    if request.method == "POST":
+        signature = request.headers.get("stripe-signature")
+        payload = request.body
+        try:
+            event = stripe.Webhook.construct_event(payload, signature, endpoint_secret)
+        except ValueError as e:
+            #Invalid Payload
+            raise e
+        except stripe.error.SignatureVerificationError as e:
+            #Invalid signature
+            raise e
+
+        if event["type"] == "checkout.session.completed":
+            data = json.loads(payload)
+            id = data['data']['object']['id']
+            stripe_checkout = StripeCheckout.objects.filter(stripe_id=id)[0]
+            if stripe_checkout:
+                stripe_checkout.sale.status = "DPND"
+                stripe_checkout.sale.save()
+
+
+    return HttpResponse(status=204)
+

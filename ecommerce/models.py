@@ -25,7 +25,7 @@ how it happens.
 '''
 class PriceHistory(models.Model):
     product = models.ForeignKey("Product", on_delete=models.PROTECT)
-    price = models.FloatField(null=False, blank=False)
+    price = models.IntegerField(null=False, blank=False)
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
@@ -47,7 +47,8 @@ class Product(models.Model):
     rating = models.FloatField(default=0, validators=[MaxValueValidator(5.0), MinValueValidator(0.0)])
     description = models.TextField(default="")
     quantity = models.IntegerField(default=0)
-    price = models.FloatField(null=False, blank=False)
+    price = models.IntegerField(null=False, blank=False)
+    stripe_price = models.CharField(max_length=255, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
 
@@ -58,6 +59,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def decimal_price(self):
+        return self.price * 1/100
 
     @staticmethod
     def get_for_index():
@@ -122,6 +126,15 @@ class Sale(models.Model):
 
     def get_status(self):
         return self.STATUS_OPTIONS[self.status]
+
+
+
+'''
+This is used to store the checkout_session that stripe provides
+'''
+class StripeCheckout(models.Model):
+    stripe_id = models.CharField(max_length=255)
+    sale = models.ForeignKey(Sale, on_delete=models.PROTECT)
 
 
 '''

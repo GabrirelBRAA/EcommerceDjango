@@ -521,7 +521,7 @@ margin-bottom: 5%;
     display: inline-block;
 }
 
-.order > button{
+.order > form > input{
     font-size: 18px;
     margin-left: 80%;
     color: white;

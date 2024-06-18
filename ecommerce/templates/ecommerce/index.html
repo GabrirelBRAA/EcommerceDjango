@@ -19,7 +19,7 @@
 <h2>{{ category }}</h2>
 <div class="products-container">
   {% for product in products %}
-  <a href="{% url 'ecommerce:item' product_id=product.id %}"><img class="product" src="{{ product.image_set.first.image.url }}" alt="product_image">{{product.name}} &emsp; {{product.price}} R$</a>
+  <a href="{% url 'ecommerce:item' product_id=product.id %}"><img class="product" src="{{ product.image_set.first.image.url }}" alt="product_image">{{product.name}} &emsp; {{product.decimal_price}} R$</a>
   {% endfor %}
   <div class="scroll-button triangle" id="circle-button-right-4"></div>
   <div class="scroll-button-left triangle triangle-left"></div>

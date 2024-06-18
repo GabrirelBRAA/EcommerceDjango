@@ -9,7 +9,7 @@
         <tr>
             <td></td>
             <td>{{order.product.name}}</td>
-            <td>{{order.product.price}} R$</td>
+            <td>{{order.product.decimal_price}} R$</td>
             <td>{{order.quantity}} Und.</td>
         </tr>
         {% endfor %}
@@ -20,7 +20,13 @@
             <td></td>
         </tr>
     </table>
-    <button>Ir ao pagamento</button>
+    {% if sale.status == "PPND" %}
+    <form action="{% url 'ecommerce:checkout' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Ir ao pagamento" />
+        <input type="hidden" name="id" value="{{sale.id}}" />
+    </form>
+    {% endif %}
 </div>
 {% endfor %}
 {% endblock %}

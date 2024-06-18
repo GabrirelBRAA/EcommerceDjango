@@ -14,5 +14,7 @@ urlpatterns = [
     path('aboutus', views.aboutus, name='aboutus'),
     path('search', views.search, name='search'),
     path('orders', views.orders, name='orders'),
-    path("create_sale", views.create_sale, name='create_sale')
+    path("create_sale", views.create_sale, name='create_sale'),
+    path("checkout", views.checkout, name="checkout"),
+    path("webhook", views.webhook, name="webhook")
 ]
