@@ -151,6 +151,7 @@ p {
 
 .login{
     background-color: #811616;
+    background-color: #fff;
     height: 92vh;
     width: 100vw;
     display: flex;

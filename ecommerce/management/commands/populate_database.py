@@ -3,7 +3,6 @@ from django.conf import settings
 from ecommerce.models import Product, Category
 from ecommerce.models import Image as Im
 from django.core.files import File
-import numpy as np
 from tempfile import NamedTemporaryFile
 from faker import Faker
 

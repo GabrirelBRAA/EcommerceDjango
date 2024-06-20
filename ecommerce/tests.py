@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your tests here.
 
+
 def create_laptop_product():
     product = Product(
         name="Laptop",
@@ -33,11 +34,11 @@ class ProductModelTests(TestCase):
         price_history = PriceHistory.objects.get(product=product)
         self.assertEqual(price_history.price, 4000.0)
 
-class OrderModelTests(TestCase):
 
-    '''
+class OrderModelTests(TestCase):
+    """
     Each order should alter the corresponding Product.quantity until it reaches 0
-    '''
+    """
     def test_order_changes_product_quantity(self):
         product = create_laptop_product()
         user = User.objects.create_user(username='john',
@@ -59,9 +60,9 @@ class OrderModelTests(TestCase):
         product.refresh_from_db()
         self.assertEqual(product.quantity, 10)
 
-    '''
+    """
     Order should not be able to make Product.quantity negative
-    '''
+    """
     def test_order_can_not_make_product_quantity_negative(self):
         product = create_laptop_product()
         user = User.objects.create_user(username='john',

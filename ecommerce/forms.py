@@ -5,6 +5,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(label="Username", max_length=50)
     password = forms.CharField(label="Password", min_length=8, widget=forms.PasswordInput)
 
+#TODO use only one password and add the function to see the written one
 class SignUpForm(forms.Form):
     username = forms.CharField(label="Username", max_length=50)
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
