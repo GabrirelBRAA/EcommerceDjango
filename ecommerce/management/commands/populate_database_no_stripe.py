@@ -10,13 +10,10 @@ from PIL import Image, ImageDraw
 
 from random import random, randint
 
-import stripe
-
 class Command(BaseCommand):
     categories = ["Computador", "Cadeira", "Sofá", "Casa", "Pedra", "Escola", "Cachorro", "Foo", "Bar", "Jogo"]
 
     def handle(self, *args, **kwargs):
-        stripe.api_key = settings.STRIPE_SECRET_KEY
         fake = Faker("pt_BR")
         self.stdout.write(str(args))
         self.stdout.write(str(kwargs))
@@ -39,14 +36,6 @@ class Command(BaseCommand):
                                       price=(randint(0, 5000000)),
                                       category=category_model
                                       )
-                    stripe_price = stripe.Price.create(currency="brl",
-                                        unit_amount=product.price,
-                                        product_data={"name": product.name})
-                    product.stripe_price = stripe_price.id
                     product.save()
-
-
-
-
 
 
