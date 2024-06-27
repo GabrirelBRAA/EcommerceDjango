@@ -148,16 +148,14 @@ def create_sale(request):
     else:
         return HttpResponseRedirect(reverse('ecommerce:index'))
 
-import os
 def checkout(request):
+    if not settings.STRIPE_SECRET_KEY:
+        return HttpResponseRedirect(reverse('ecommerce:index'))
     if request.method == "POST":
         sale_id = request.POST["id"]
         sale = Sale.objects.filter(id=sale_id)[0]
         line_items = []
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        print(os.environ["STRIPE_SECRET_KEY"])
-        print(settings.STRIPE_SECRET_KEY)
-        print(stripe.api_key)
         for order in sale.order_set.all():
             line_items.append(
                 {
