@@ -15,7 +15,7 @@ It has:
 
 2 - `docker build . -t <tag>`
 
-3 - `docker run <tag>`
+3 - `docker run -p 8000:8000/tcp <tag>`
 
 ## Locally
 The python version used for development was 3.12.2, anything above that should work
