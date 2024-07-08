@@ -13,10 +13,8 @@ COPY . .
 ENV STRIPE_PUBLIC_KEY=$STRIPE_PUBLIC_KEY
 ENV STRIPE_SECRET_KEY=$STRIPE_PRIVATE_KEY
 ENV PYTHONUNBUFFERED=1
+ENV DJANGO_SETTINGS_MODULE=emoveis.settings	
 
-RUN python manage.py makemigrations
-RUN python manage.py migrate
+EXPOSE 8000
 
-RUN python manage.py populate_database_no_stripe	
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["bash", "run_script.sh"]

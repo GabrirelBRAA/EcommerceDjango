@@ -77,9 +77,13 @@ WSGI_APPLICATION = 'emoveis.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase3',
+        'USER': 'postgres',
+        'PASSWORD': 'secret',
+        "HOST": 'postgres',
+        "PORT": "5432",
+        }
 }
 
 
