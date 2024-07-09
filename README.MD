@@ -13,9 +13,12 @@ It has:
 ## With Docker
 1 - `git clone https://github.com/GabrirelBRAA/EcommerceDjango.git`
 
-2 - `docker build . -t <tag>`
+2 - `docker compose up`
 
-3 - `docker run -p 8000:8000/tcp <tag>`
+3 - `docker exec <app-tag-here> python manage.py populate_database_no_stripe`
+
+(This third command populates the database with mock items, you will not have anything in the site
+if you do no call it.)
 
 ## Locally
 The python version used for development was 3.12.2, anything above that should work
@@ -26,9 +29,12 @@ The python version used for development was 3.12.2, anything above that should w
 
 3 - Into the repository: `pip install --no-cache-dir -r requirements.txt`
 
-4 - `python manage.py migrate`
+4 - Configure the database in settings.py. The default is set to the docker postgreSQL one but
+    you probably want to change to the Django default SQLite in the local environment.
 
-5 - `python manage.py populate_database_no_stripe`
+5 - `python manage.py migrate`
 
-5 - `python manage.py runserver`
+6 - `python manage.py populate_database_no_stripe`
+
+7 - `python manage.py runserver`
 
